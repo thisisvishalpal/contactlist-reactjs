@@ -77,54 +77,64 @@ class Favourite extends Component {
   success = ()=>{
       Alert.success("Succeed")
   }
+  handleContact = () =>{
+      console.log('handle contact')
+  }
   render() {
     // const data = this.state.contactList;
     // console.log(data);
-    return (
-      <Container>
-        <List hover>
-          {this.state.contactList.map((item, index) => (
-            <List.Item key={item["first_name"]} index={index}>
-              <FlexboxGrid>
-                <FlexboxGrid.Item colspan={12} style={styleCenter}>
-                  <Avatar size="lg" circle src={item.avatar} />
-                </FlexboxGrid.Item>
-                <FlexboxGrid.Item
-                  colspan={12}
-                  style={{
-                    ...styleCenter,
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div style={titleStyle}>{item["first_name"]}</div>
-                  <div style={slimText}>
-                    <div>{" " + item["last_name"]}</div>
-                    <div>{item["email"]}</div>
-                  </div>
-                </FlexboxGrid.Item>
-                {/* <FlexboxGrid.Item
-                  colspan={8}
-                  style={{
-                    ...styleCenter,
-                  }}
-                >
-                  <Toggle
-                    name="status"
-                    size="md"
-                    checkedChildren="Fav"
-                    //   unCheckedChildren="Inactive"
-                    defaultChecked={Number(item.status) === 1 ? true : false}
-                    onChange={() => this.handleActiveInactive(item)}
-                  />
-                </FlexboxGrid.Item> */}
-              </FlexboxGrid>
-            </List.Item>
-          ))}
-        </List>
-      </Container>
-    );
+    if(this.state.contactList.length){
+      return (
+        <Container>
+          <List hover>
+            {this.state.contactList.map((item, index) => (
+              <List.Item key={item["first_name"]} index={index}    >
+                <FlexboxGrid  >
+                  <FlexboxGrid.Item colspan={12} style={styleCenter}>
+                    <Avatar size="lg" circle src={item.avatar} />
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item
+                    colspan={12}
+                    style={{
+                      ...styleCenter,
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div  style={titleStyle}>{item["first_name"]}</div>
+                    <div style={slimText}>
+                      <div>{" " + item["last_name"]}</div>
+                      <div>{item["email"]}</div>
+                    </div>
+                  </FlexboxGrid.Item>
+                  {/* <FlexboxGrid.Item
+                    colspan={8}
+                    style={{
+                      ...styleCenter,
+                    }}
+                  >
+                    <Toggle
+                      name="status"
+                      size="md"
+                      checkedChildren="Fav"
+                      //   unCheckedChildren="Inactive"
+                      defaultChecked={Number(item.status) === 1 ? true : false}
+                      onChange={() => this.handleActiveInactive(item)}
+                    />
+                  </FlexboxGrid.Item> */}
+                </FlexboxGrid>
+              </List.Item>
+            ))}
+          </List>
+        </Container>
+      );
+
+    }else{
+      return(<h4 className="text-center m-5">
+        Please Add Contacts To Favourite from Home
+      </h4>)
+    }
   }
 }
 

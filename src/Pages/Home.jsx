@@ -76,6 +76,10 @@ class Home extends Component {
   success = ()=>{
       Alert.success("Succeed")
   }
+  handleContact = (data) =>{
+      console.log(data,'clicked')
+        window.location.href = `#/contact/:${data.id}`;
+  }
   render() {
     // const data = this.state.contactList;
     // console.log(data);
@@ -83,12 +87,13 @@ class Home extends Component {
       <Container>
         <List hover>
           {this.state.contactList.map((item, index) => (
-            <List.Item key={item["first_name"]} index={index}>
+            <List.Item key={item["first_name"]} index={index} >
               <FlexboxGrid>
-                <FlexboxGrid.Item colspan={8} style={styleCenter}>
+                <FlexboxGrid.Item colspan={8} style={styleCenter} onClick={()=>this.handleContact(item)}>
                   <Avatar size="lg" circle src={item.avatar} />
                 </FlexboxGrid.Item>
                 <FlexboxGrid.Item
+                onClick={()=>this.handleContact(item)}
                   colspan={8}
                   style={{
                     ...styleCenter,

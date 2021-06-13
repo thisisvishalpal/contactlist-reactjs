@@ -30,13 +30,12 @@ class Routing extends Component {
           <Header />
           <Switch>
             <Route exact path={"/"} component={Home} />
-            <Route exact path={"/Home"} component={Home} />
-            <Route exact path={"/Contact"} component={Contact} />
-            <Route exact path={"/Favourite"} component={Favourite} />
-            <Route exact path="*" component={Page404} />
+            <Route exact path={"/home"} component={Home} />
+            <Route exact path={"/contact"} component={Contact} />
+            <Route exact path={"/favourite"} component={Favourite} />
+            <Route exact path={"/contact/:id"} component={Contact} />
 
-            {/* <Route exact path={"/hourly/:id"} component={Hourly} />
-                <Route exact path={"/bundle/:id"} component={Bundle} /> */}
+            <Route exact path="*" component={Page404} />
           </Switch>
         </HashRouter>
       </div>
