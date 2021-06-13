@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button, Container,Row,Col } from "react-bootstrap";
+import axios from 'axios';
 class Contact extends Component {
   state = {
     data: [{}],
@@ -14,6 +15,23 @@ class Contact extends Component {
           (x) => Number(x.id) === Number(id)
         );
         this.setState({ data: finalContact });
+      }else{
+        await axios
+      .get("https://reqres.in/api/users?page=2")
+      .then((res) => {
+        if (res.status === 200) {
+          // console.log(res.data.data);
+          let data = res.data.data;
+          data.map((x) => (x.status = false));
+          let finalContact = data.filter(
+            (x) => Number(x.id) === Number(id)
+          );
+          this.setState({
+             data:finalContact
+          });
+        }
+      })
+      .catch((err) => console.log(err));
       }
       //   this.setState({data:finalContact})
     }
