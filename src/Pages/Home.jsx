@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import ContentArea from "./../components/ContentArea";
 import axios from "axios";
-import { List, FlexboxGrid, Avatar, Toggle,Container } from "rsuite";
+import { List, FlexboxGrid, Avatar, Toggle, Container, Alert } from "rsuite";
 
 const styleCenter = {
   display: "flex",
@@ -32,18 +32,53 @@ class Home extends Component {
     contactList: [],
   };
   componentDidMount = async () => {
-    await axios.get("https://reqres.in/api/users?page=2").then((res) => {
-      if (res.status === 200) {
-        console.log(res.data.data);
-        this.setState({
-          contactList: res.data.data,
-        });
-      }
-    });
+    let localStorageList = localStorage.getItem("contactList");
+
+    if (localStorageList) {
+        let z = JSON.parse(localStorageList)
+        // console.log(z)
+      this.setState({
+        contactList: z,
+      });
+    } else {
+    await axios
+      .get("https://reqres.in/api/users?page=2")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data.data);
+          let data = res.data.data;
+          data.map((x) => (x.status = false));
+          this.setState({
+            contactList: data,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
+  };
+  handleActiveInactive = async (data) => {
+    const elementsIndex = this.state.contactList.findIndex(
+      (element) => element.id === data.id
+    );
+    let newArray = [...this.state.contactList];
+    newArray[elementsIndex] = {
+      ...newArray[elementsIndex],
+      status: !newArray[elementsIndex].status,
+    };
+    this.setState({
+      contactList: newArray,
+    });
+    this.success()
+    let encryUpdatedList = JSON.stringify(newArray);
+    localStorage.setItem("contactList", encryUpdatedList);
+    // console.log(localStorage.getItem("contactList"));
+  };
+  success = ()=>{
+      Alert.success("Succeed")
+  }
   render() {
-    const data = this.state.contactList;
-    console.log(data);
+    // const data = this.state.contactList;
+    // console.log(data);
     return (
       <Container>
         <List hover>
@@ -74,7 +109,15 @@ class Home extends Component {
                     ...styleCenter,
                   }}
                 >
-                  <Toggle size="md" />
+                  {/* <Toggle size="md" /> */}
+                  <Toggle
+                    name="status"
+                    size="md"
+                    checkedChildren="Fav"
+                    //   unCheckedChildren="Inactive"
+                    defaultChecked={Number(item.status) === 1 ? true : false}
+                    onChange={() => this.handleActiveInactive(item)}
+                  />
                 </FlexboxGrid.Item>
               </FlexboxGrid>
             </List.Item>
