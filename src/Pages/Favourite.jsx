@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import ContentArea from "./../components/ContentArea";
 import axios from "axios";
-import { List, FlexboxGrid, Avatar, Toggle, Container, Alert } from "rsuite";
+import { List, FlexboxGrid, Avatar, Container, Alert } from "rsuite";
 
 const styleCenter = {
   display: "flex",
@@ -36,7 +36,7 @@ class Favourite extends Component {
 
     if (localStorageList) {
         let z = JSON.parse(localStorageList)
-        let filterContacts = z.filter(x=>x.status==true)
+        let filterContacts = z.filter(x=>x.status===true)
         // console.log(z)
       this.setState({
         contactList: filterContacts,
