@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Container,Row,Col } from "react-bootstrap";
+import { Card, Button, Container, Row, Col } from "react-bootstrap";
 class Contact extends Component {
   state = {
     data: [{}],
@@ -22,32 +22,34 @@ class Contact extends Component {
     if (this.props.match.params.id) {
       return (
         <div>
-          <Container className="text-center">
-            <Row>
-              <Col className='mx-auto'>
-                <Card style={{ width: "14rem" }}>
-                  <Card.Img
-                    variant="top"
-                    className="rounded-circle"
-                    src={this.state.data[0].avatar}
-                  />
-                  <Card.Body>
-                    <Card.Title>{this.state.data[0].first_name}</Card.Title>
-                    <Card.Text>{this.state.data[0].email}</Card.Text>
-                    <Button className="m-2" variant="primary" href="#/">
-                      Go Home
-                    </Button>
-                  </Card.Body>
-                </Card>
+          <Container>
+            <Row className="text-center my-5 ">
+              <Col className="d-flex justify-content-center ">
+                <span className="align-middle">
+                  <Card style={{ width: "14rem" }} >
+                    <Card.Img
+                      variant="top"
+                      className="rounded-circle"
+                      src={this.state.data[0].avatar}
+                    />
+                    <Card.Body>
+                      <Card.Title>{this.state.data[0].first_name}</Card.Title>
+                      <Card.Text>{this.state.data[0].email}</Card.Text>
+                      <Button className="m-2" variant="primary" href="#/">
+                        Go Home
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </span>
               </Col>
             </Row>
           </Container>
         </div>
       );
     } else {
-      return (<h4 className="text-center m-5">
-      Please Select Contacts from Home.
-    </h4>);
+      return (
+        <h4 className="text-center m-5">Please Select Contacts from Home.</h4>
+      );
     }
   }
 }

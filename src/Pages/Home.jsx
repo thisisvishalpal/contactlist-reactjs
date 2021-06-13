@@ -77,12 +77,9 @@ class Home extends Component {
       Alert.success("Succeed")
   }
   handleContact = (data) =>{
-      console.log(data,'clicked')
         window.location.href = `#/contact/:${data.id}`;
   }
   render() {
-    // const data = this.state.contactList;
-    // console.log(data);
     return (
       <Container>
         <List hover>
